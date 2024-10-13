@@ -5,14 +5,22 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
+<<<<<<< HEAD
 		<version>3.3.4</version>
+=======
+		<version>3.2.10</version>
+>>>>>>> 0f51279 (Initial Commit)
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.anjana</groupId>
 	<artifactId>Journal</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Journal</name>
+<<<<<<< HEAD
 	<description>Project to manage journal in Spring Boot</description>
+=======
+	<description>Journal Project for Spring Boot</description>
+>>>>>>> 0f51279 (Initial Commit)
 	<url/>
 	<licenses>
 		<license/>
