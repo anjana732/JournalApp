@@ -6,7 +6,6 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.sql.ClientInfoStatus;
 import java.util.List;
 
 @Component
@@ -23,13 +22,19 @@ public class JournalEntryService {
         return journalEntryRepository.findAll();
     }
 
-//    public JournalEntry updateEntry(JournalEntry journalEntry){
-//
-//    }
+    public JournalEntry findById(ObjectId id){
+        return journalEntryRepository.findById(id).orElse(null);
+    }
 
-//    public JournalEntry findById(ObjectId id){
-//        return journalEntryRepository.findBy(id);
-//
-//    }
+    public JournalEntry updateEntry(ObjectId id, JournalEntry updatedEntry) {
+        return journalEntryRepository.findById(id).map(existingEntry -> {
+            existingEntry.setTitle(updatedEntry.getTitle()); // Example field
+            existingEntry.setContent(updatedEntry.getContent()); // Example field
+            return journalEntryRepository.save(existingEntry);
+        }).orElse(null);
+    }
 
+    public void deleteEntry(ObjectId id){
+          journalEntryRepository.deleteById(id);
+    }
 }
