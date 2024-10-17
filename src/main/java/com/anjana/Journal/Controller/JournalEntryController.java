@@ -4,6 +4,8 @@ import com.anjana.Journal.Entity.JournalEntry;
 import com.anjana.Journal.Services.JournalEntryService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -27,6 +29,7 @@ public class JournalEntryController {
        return journalEntryService.getAll();
     }
 
+
     @PostMapping
     public boolean createEntry(@RequestBody JournalEntry myEntry){
 //        journalEntries.put(myEntry.getId(), myEntry);
@@ -36,8 +39,12 @@ public class JournalEntryController {
     }
 
     @GetMapping("id/{myId}")
-    public JournalEntry getEntryById(@PathVariable ObjectId myId){
-        return journalEntryService.findById(myId);
+    public ResponseEntity<JournalEntry> getEntryById(@PathVariable ObjectId myId){
+        JournalEntry entryById = journalEntryService.findById(myId);
+        if(entryById != null){
+            return new ResponseEntity<>(entryById, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
        // return null;
     }
 
