@@ -5,6 +5,7 @@ import com.anjana.Journal.Services.JournalEntryService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,11 +32,15 @@ public class JournalEntryController {
 
 
     @PostMapping
-    public boolean createEntry(@RequestBody JournalEntry myEntry){
+    public ResponseEntity<JournalEntry> createEntry(@RequestBody JournalEntry myEntry){
 //        journalEntries.put(myEntry.getId(), myEntry);
-        myEntry.setDate(LocalDateTime.now());
-        journalEntryService.saveEntry(myEntry);
-        return true;
+        try {
+            myEntry.setDate(LocalDateTime.now());
+            journalEntryService.saveEntry(myEntry);
+            return new ResponseEntity<>(myEntry, HttpStatus.CREATED);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping("id/{myId}")
@@ -45,13 +50,13 @@ public class JournalEntryController {
             return new ResponseEntity<>(entryById, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-       // return null;
     }
 
     @DeleteMapping("id/{myId}")
-    public boolean deleteEntry(@PathVariable ObjectId myId){
+    public ResponseEntity<?> deleteEntry(@PathVariable ObjectId myId){
       journalEntryService.deleteEntry(myId);
-      return true;
+      return new ResponseEntity<>(HttpStatus.OK);
+
     }
 
     @PutMapping("id/{myId}")
