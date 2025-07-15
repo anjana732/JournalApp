@@ -8,7 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-@Document(collection = "journal_entries")
+//@Document(collection = "journal_entries")
 public class JournalEntry {
 
     @Id
