@@ -1,8 +1,8 @@
 package com.anjana.Journal.Repository;
 
-import com.anjana.Journal.model.User;
+import com.anjana.Journal.Entity.User;
 import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.MongoAdminOperations;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface UserRepository extends MongoAdminOperations<User, ObjectId> {
+public interface UserRepository extends MongoRepository<User, ObjectId> {
 }
