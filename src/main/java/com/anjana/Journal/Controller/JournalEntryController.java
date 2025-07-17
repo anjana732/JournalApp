@@ -1,7 +1,9 @@
 package com.anjana.Journal.Controller;
 
 import com.anjana.Journal.Entity.JournalEntry;
+import com.anjana.Journal.Entity.User;
 import com.anjana.Journal.Services.JournalEntryService;
+import com.anjana.Journal.Services.UserService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,21 +24,28 @@ public class JournalEntryController {
 
     @Autowired
     private JournalEntryService journalEntryService;
+    @Autowired
+    private UserService userService;
 
 //    private Map<Long, JournalEntry> journalEntries = new HashMap<>();
-    @GetMapping
-    public List<JournalEntry> getAll(){
-//       return new ArrayList<>(journalEntries.values());
-       return journalEntryService.getAll();
+    @GetMapping("{username}")
+    public ResponseEntity<?> getAllJournalEntryOfUser(@PathVariable String username){
+       User user =  userService.findByUsername(username);
+       List<JournalEntry> all = user.getJournalEntries();
+       if(all!=null && !all.isEmpty()){
+           return new ResponseEntity<>(all, HttpStatus.OK);
+       }
+       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 
-    @PostMapping
-    public ResponseEntity<JournalEntry> createEntry(@RequestBody JournalEntry myEntry){
+    @PostMapping("{username}")
+    public ResponseEntity<JournalEntry> createEntry(@RequestBody JournalEntry myEntry, @PathVariable String username){
 //        journalEntries.put(myEntry.getId(), myEntry);
+
         try {
             myEntry.setDate(LocalDateTime.now());
-            journalEntryService.saveEntry(myEntry);
+            journalEntryService.saveEntry(myEntry,username);
             return new ResponseEntity<>(myEntry, HttpStatus.CREATED);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
