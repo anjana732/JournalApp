@@ -41,7 +41,6 @@ public class JournalEntryController {
 
     @PostMapping("{username}")
     public ResponseEntity<JournalEntry> createEntry(@RequestBody JournalEntry myEntry, @PathVariable String username){
-//        journalEntries.put(myEntry.getId(), myEntry);
 
         try {
             myEntry.setDate(LocalDateTime.now());
@@ -61,9 +60,9 @@ public class JournalEntryController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("id/{myId}")
-    public ResponseEntity<?> deleteEntry(@PathVariable ObjectId myId){
-      journalEntryService.deleteEntry(myId);
+    @DeleteMapping("id/{username}/{myId}")
+    public ResponseEntity<?> deleteEntry(@PathVariable ObjectId myId, @PathVariable String username){
+      journalEntryService.deleteEntry(myId,username);
       return new ResponseEntity<>(HttpStatus.OK);
 
     }
