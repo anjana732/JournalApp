@@ -4,7 +4,6 @@ package com.anjana.Journal.Controller;
 import com.anjana.Journal.Entity.User;
 import com.anjana.Journal.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +24,9 @@ public class UserController {
     }
 
     @PostMapping
-    public void createUser(User user){
+    public void createUser(@RequestBody User user){
         userService.saveEntry(user);
+        System.out.println(user);
     }
 
     @PutMapping
@@ -34,7 +34,7 @@ public class UserController {
         User userInDB = userService.findByUsername(user.getUsername());
         if(userInDB != null){
             userInDB.setUsername(user.getUsername());
-            userInDB.setUsername(user.getPassword());
+            userInDB.setPassword(user.getPassword());
             userService.saveEntry(userInDB);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

@@ -4,9 +4,12 @@ import com.anjana.Journal.Entity.User;
 import com.anjana.Journal.Repository.UserRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 import java.util.Optional;
 
+@Component
 public class UserService {
     @Autowired
     private UserRepository userRepository;
