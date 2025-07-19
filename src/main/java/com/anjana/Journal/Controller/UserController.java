@@ -23,9 +23,10 @@ public class UserController {
         return userService.getAll();
     }
 
-    @PostMapping
+    @PostMapping("create-user")
     public void createUser(@RequestBody User user){
-        userService.saveEntry(user);
+        User saveUserRes = userService.saveEntry(user);
+        System.out.println(saveUserRes);
         System.out.println(user);
     }
 

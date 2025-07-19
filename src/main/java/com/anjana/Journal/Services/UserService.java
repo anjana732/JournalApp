@@ -15,8 +15,8 @@ public class UserService {
     private UserRepository userRepository;
 
     //To save user in database
-    public void saveEntry(User user){
-        userRepository.save(user);
+    public User saveEntry(User user){
+        return userRepository.save(user);
     }
 
     //To get all users from database

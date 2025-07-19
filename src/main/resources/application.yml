@@ -1,0 +1,4 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://JournalApplication:vvl2TuW93u1bLdCx@anjana.vto8k.mongodb.net/journalApp?retryWrites=true&w=majority&appName=Anjana
